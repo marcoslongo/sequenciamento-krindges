@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model TbSequenciamentoTeste {
+  cd_empresa           Int?
+  nr_ciclo             Int?
+  nr_op                Int       @id
+  nr_prioridade        Int?
+  inicio_op            DateTime? @db.Date
+  dt_entrada_local     DateTime? @db.Timestamp(6)
+  cd_nivel             String?   @db.VarChar(10)
+  cd_local             Int?
+  ds_local             String?   @db.VarChar(100)
+  dias_local           Int?
+  ds_marca             String?   @db.VarChar(50)
+  ds_divisao_produtiva String?   @db.VarChar(50)
+  ds_colecao           String?   @db.VarChar(50)
+  desenho_tecnico      String?   @db.VarChar(200)
+  ordem                Int?
+  qt_op                Int?
+
+  @@map("tb_sequenciamento_teste")
+}
+
+model user {
+  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String    @db.VarChar(191)
+  email     String    @unique @db.VarChar(191)
+  password  String    @db.VarChar(191)
+  createdAt DateTime? @default(now())
+}
