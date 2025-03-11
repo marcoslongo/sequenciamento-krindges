@@ -10,6 +10,7 @@ import { CardOP } from '@/components/CardOp';
 import { Header } from '../../Header';
 import { Filter, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+
 import {
   Dialog,
   DialogClose,
@@ -47,7 +48,7 @@ interface AggregatedDataProdutive {
 }
 
 export default function Content() {
-  const [, setDados] = useState<Sequenciamento[]>([]); // Todos os dados
+  const [, setDados] = useState<Sequenciamento[]>([]);
   const [dadosFiltrados, setDadosFiltrados] = useState<Sequenciamento[]>([]);
   const [aggregatedData, setAggregatedData] = useState<AggregatedData[]>([]);
   const [aggregatedDataProdutive, setAggregatedDataProdutive] = useState<
@@ -180,8 +181,8 @@ export default function Content() {
       </div>
       <div className="p-6">
         {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <p>Carregando...</p>
+          <div className="flex justify-center h-[30vh] items-center">
+            Carregando...
           </div>
         ) : (
           <Swiper
