@@ -13,7 +13,6 @@ import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -41,10 +40,14 @@ interface AggregatedData {
   ordens_local: number;
   pecas_local: number;
 }
+interface AggregatedDataProdutive {
+  ds_divisao_produtiva: string;
+}
 
 export default function Content() {
   const [dados, setDados] = useState<Sequenciamento[]>([]);
   const [aggregatedData, setAggregatedData] = useState<AggregatedData[]>([]);
+  const [aggregatedDataProdutive, setAggregatedDataProdutive] = useState<AggregatedDataProdutive[]>([]);
 
   useEffect(() => {
     async function fetchData() {
@@ -53,6 +56,7 @@ export default function Content() {
         const resultado = await response.json();
         setDados(resultado.detailedData);
         setAggregatedData(resultado.aggregatedData);
+        setAggregatedDataProdutive(resultado.aggregatedDataProdutive);
       } catch (error) {
         console.error("Erro ao buscar os dados:", error);
       }
@@ -70,10 +74,7 @@ export default function Content() {
           </DialogTrigger>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
-              <DialogTitle></DialogTitle>
-              <DialogDescription>
-                Busque por Divisão Produtiva
-              </DialogDescription>
+              <DialogTitle>Busque por setor</DialogTitle>
             </DialogHeader>
             <div className="flex flex-col gap-4">
               <ul className="flex flex-col gap-2">
@@ -84,6 +85,22 @@ export default function Content() {
                       <Checkbox value={item.cd_local} id={checkboxId} />
                       <label htmlFor={checkboxId} className="cursor-pointer">
                         {item.cd_local} - {item.ds_local}
+                      </label>
+                    </li>
+                  );
+                })}
+              </ul>
+              <DialogHeader>
+                <DialogTitle>Busque por Divisão Produtiva</DialogTitle>
+              </DialogHeader>
+              <ul className="flex flex-col gap-2">
+                {aggregatedDataProdutive.map((item, index) => {
+                  const checkboxId = `checkbox-${item.ds_divisao_produtiva}`;
+                  return (
+                    <li key={index} className="flex items-center gap-1">
+                      <Checkbox value={item.ds_divisao_produtiva} id={checkboxId} />
+                      <label htmlFor={checkboxId} className="cursor-pointer">
+                        {item.ds_divisao_produtiva}
                       </label>
                     </li>
                   );

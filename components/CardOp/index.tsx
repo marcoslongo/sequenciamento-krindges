@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { formatDate } from "@/app/utils/formatDate";
+import { Button } from "../ui/button";
 
 interface CardOpProps {
   marca: string;
@@ -39,6 +40,9 @@ export function CardOP({
           <div className="bg-green-500 w-[24px] h-[24px] block rounded-full"></div>
           <p>Dentro do prazo</p>
         </div>
+      </div>
+      <div className="flex w-full justify-center mt-3">
+        <Button variant="outline">Ver detalhes</Button>
       </div>
     </div>
   );

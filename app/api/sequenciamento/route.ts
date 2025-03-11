@@ -13,11 +13,18 @@ export async function GET() {
       _sum: {
         qt_op: true,
       },
+      orderBy: {
+        cd_local: "asc",
+      },
+    });
+
+    const aggregatedDataProdutive = await prisma.tbSequenciamentoTeste.groupBy({
+      by: ["ds_divisao_produtiva"],
     });
 
     const detailedData = await prisma.tbSequenciamentoTeste.findMany({
       orderBy: {
-        ordem: "asc",
+        cd_local: "asc",
       },
     });
 
@@ -28,7 +35,7 @@ export async function GET() {
       pecas_local: item._sum.qt_op,
     }));
 
-    return NextResponse.json({ aggregatedData: processedAggregatedData, detailedData });
+    return NextResponse.json({ aggregatedData: processedAggregatedData, detailedData, aggregatedDataProdutive });
   } catch (error) {
     console.error("Erro ao buscar os dados:", error);
     return NextResponse.json({ error: "Erro ao buscar os dados" }, { status: 500 });
