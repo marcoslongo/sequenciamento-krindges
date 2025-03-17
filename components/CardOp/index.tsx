@@ -16,6 +16,7 @@ interface CardOpProps {
   ds_colecao: string;
   qt_op: number;
   inicio_op: string;
+  cd_nivel: string;
 }
 
 export function CardOP({
@@ -23,13 +24,14 @@ export function CardOP({
   desenho_tecnico,
   nr_op, ds_colecao,
   qt_op,
-  inicio_op
+  inicio_op,
+  cd_nivel
 }: CardOpProps) {
   return (
     <div className="w-full p-2 rounded bg-[#ccc] mb-4">
       <div className="font-bold text-center">
         <p>O.P: {nr_op}</p>
-        <p>Ref: 605 119072</p>
+        <p>Ref: {cd_nivel}</p>
         <p className="text-sm">Marca: <span>{marca}</span></p>
         <p>Coleção: {ds_colecao}</p>
         <p>Qt: {qt_op}</p>
@@ -42,7 +44,7 @@ export function CardOP({
         </DialogTrigger>
         <DialogContent className="sm:max-w-screen-md">
           <DialogHeader>
-            <DialogTitle>O.P: {nr_op} - Referência: {nr_op}</DialogTitle>
+            <DialogTitle>O.P: {nr_op} - Referência: {cd_nivel}</DialogTitle>
           </DialogHeader>
           <Image
             src={desenho_tecnico}
@@ -71,7 +73,7 @@ export function CardOP({
         </DialogTrigger>
         <DialogContent className="sm:max-w-screen-sm">
           <DialogHeader>
-            <DialogTitle>O.P: {nr_op} - Referência: {nr_op}</DialogTitle>
+            <DialogTitle>O.P: {nr_op} - Referência: {cd_nivel}</DialogTitle>
           </DialogHeader>
           <div className="font-bold">
             <p>O.P: {nr_op}</p>

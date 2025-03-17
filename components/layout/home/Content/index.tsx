@@ -224,6 +224,7 @@ export default function Content() {
                           ds_colecao={item.ds_colecao}
                           qt_op={item.qt_op}
                           inicio_op={item.inicio_op}
+                          cd_nivel={item.cd_nivel}
                         />
                       ))}
                   </div>
