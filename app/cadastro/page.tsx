@@ -1,19 +1,18 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
-
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();

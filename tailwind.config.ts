@@ -8,15 +8,15 @@ export default {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-		container: {
-      center: true,
-      padding: '1rem',
-      screens: {
-        mobile: '768px',
-        tablet: '992px',
-        desktop: '1216px',
-      },
-    },
+  	container: {
+  		center: true,
+  		padding: '1rem',
+  		screens: {
+  			mobile: '768px',
+  			tablet: '992px',
+  			desktop: '1216px'
+  		}
+  	},
   	extend: {
   		colors: {
   			background: 'hsl(var(--background))',
@@ -58,6 +58,16 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
+  			},
+  			sidebar: {
+  				DEFAULT: 'hsl(var(--sidebar-background))',
+  				foreground: 'hsl(var(--sidebar-foreground))',
+  				primary: 'hsl(var(--sidebar-primary))',
+  				'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+  				accent: 'hsl(var(--sidebar-accent))',
+  				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+  				border: 'hsl(var(--sidebar-border))',
+  				ring: 'hsl(var(--sidebar-ring))'
   			}
   		},
   		borderRadius: {

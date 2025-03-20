@@ -29,9 +29,11 @@ model TbSequenciamentoTeste {
 }
 
 model user {
-  id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name      String    @db.VarChar(191)
-  email     String    @unique @db.VarChar(191)
-  password  String    @db.VarChar(191)
-  createdAt DateTime? @default(now())
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name           String    @db.VarChar(191)
+  email          String    @unique @db.VarChar(191)
+  password       String    @db.VarChar(191)
+  createdAt      DateTime? @default(now())
+  isMaster       Boolean?  @default(false)
+  canGrantAccess Boolean?  @default(false)
 }

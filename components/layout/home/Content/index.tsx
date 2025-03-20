@@ -8,8 +8,9 @@ import { FreeMode, Scrollbar, Mousewheel } from 'swiper/modules';
 import { useState, useEffect } from 'react';
 import { CardOP } from '@/components/CardOp';
 import { Header } from '../../Header';
-import { Filter, Search } from 'lucide-react';
+import { Filter, Search, UserRoundCog } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 import {
   Dialog,
@@ -110,11 +111,16 @@ export default function Content() {
   return (
     <main className="h-screen bg-gray-300">
       <Header />
-      <div className="bg-[#0d0131] p-6 flex flex-col items-center gap-4">
+      <div className="bg-[#0d0131] p-6 flex justify-center items-center gap-4">
+        <Link href="/liberacao-acesso" tabIndex={-1}>
+          <Button className="flex gap-1" variant="outline">
+            <UserRoundCog /> Gerenciar usuários
+          </Button>
+        </Link>
         <Dialog>
           <DialogTrigger asChild>
             <Button className="flex gap-1" variant="outline">
-              Filtros <Filter />
+              <Filter />Filtros
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-md">
