@@ -19,6 +19,7 @@ interface CardOpProps {
   inicio_op: string;
   cd_nivel: string;
   valida_atraso: string;
+  ds_tipo: string;
 }
 
 export function CardOP({
@@ -28,7 +29,8 @@ export function CardOP({
   qt_op,
   inicio_op,
   cd_nivel,
-  valida_atraso
+  valida_atraso,
+  ds_tipo
 }: CardOpProps) {
   return (
     <div className="p-2 rounded bg-[#ccc] mb-4">
@@ -59,7 +61,8 @@ export function CardOP({
       </Dialog>
       <div className="w-full font-bold">
         <p>Entrada: {formatDate(inicio_op)}</p>
-        <ValidaAtraso valida_atraso={valida_atraso}/>
+        <p>{ds_tipo === 'COSTURA_EXTERNA' ? 'Costura externa' : 'Costura interna'}</p>
+        <ValidaAtraso valida_atraso={valida_atraso} />
       </div>
       <Dialog>
         <DialogTrigger asChild>
@@ -78,7 +81,8 @@ export function CardOP({
             <p>Coleção: {ds_colecao}</p>
             <p>Qt: {qt_op}</p>
             <p>Entrada: {formatDate(inicio_op)}</p>
-            <ValidaAtraso valida_atraso={valida_atraso}/>
+            <p>{ds_tipo}</p>
+            <ValidaAtraso valida_atraso={valida_atraso} />
           </div>
         </DialogContent>
       </Dialog>

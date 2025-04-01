@@ -205,10 +205,10 @@ export default function Content() {
             className="mySwiper w-full"
             spaceBetween={20}
             breakpoints={{
-              640: { slidesPerView: 1.2, spaceBetween: 10 },
-              768: { slidesPerView: 2.2, spaceBetween: 15 },
-              1024: { slidesPerView: 3.2, spaceBetween: 20 },
-              1280: { slidesPerView: 5.2, spaceBetween: 20 },
+              640: { slidesPerView: 1.4, spaceBetween: 10 },
+              768: { slidesPerView: 2.4, spaceBetween: 15 },
+              1024: { slidesPerView: 3.4, spaceBetween: 20 },
+              1280: { slidesPerView: 5.4, spaceBetween: 20 },
             }}
           >
             {aggregatedData
@@ -216,7 +216,7 @@ export default function Content() {
                 return dadosFiltrados.some((data) => data.cd_local === item.cd_local);
               })
               .map((item, index) => (
-                <SwiperSlide key={index} >
+                <SwiperSlide key={index}>
                   <div className="text-center bg-white rounded-t-md py-4">
                     <h2 className="text-lg font-bold">
                       {item.cd_local} - {item.ds_local}
@@ -229,24 +229,39 @@ export default function Content() {
                     </p>
                   </div>
                   <div className="bg-white p-3 shadow rounded-b-md !h-[55vh] overflow-x-scroll">
-                    {dadosFiltrados
-                      .filter((data) => data.cd_local === item.cd_local)
-                      .map((item, index) => (
-                        <CardOP
-                          key={index}
-                          marca={item.ds_marca}
-                          desenho_tecnico={item.desenho_tecnico}
-                          nr_op={item.nr_op}
-                          ds_colecao={item.ds_colecao}
-                          qt_op={item.qt_op}
-                          inicio_op={item.inicio_op}
-                          cd_nivel={item.cd_nivel}
-                          valida_atraso={item.valida_atraso}
-                        />
-                      ))}
+                    {dadosFiltrados.filter((data) => data.cd_local === item.cd_local)
+                      .length === 0 ? (
+                      <p className="text-center text-gray-500">Nenhum resultado encontrado para este local.</p>
+                    ) : (
+                      dadosFiltrados
+                        .filter((data) => data.cd_local === item.cd_local)
+                        .map((item, index) => (
+                          <CardOP
+                            key={index}
+                            marca={item.ds_marca}
+                            desenho_tecnico={item.desenho_tecnico}
+                            nr_op={item.nr_op}
+                            ds_colecao={item.ds_colecao}
+                            qt_op={item.qt_op}
+                            inicio_op={item.inicio_op}
+                            cd_nivel={item.cd_nivel}
+                            valida_atraso={item.valida_atraso}
+                            ds_tipo={item.ds_tipo}
+                          />
+                        ))
+                    )}
                   </div>
                 </SwiperSlide>
               ))}
+            {aggregatedData
+              .filter((item) => {
+                return dadosFiltrados.some((data) => data.cd_local === item.cd_local);
+              })
+              .length === 0 && (
+                <div className="text-center bg-white rounded-t-md py-4">
+                  <p className="text-lg font-bold">Nenhum local disponível para exibir.</p>
+                </div>
+              )}
           </Swiper>
         )}
       </div>
