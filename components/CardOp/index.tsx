@@ -8,6 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
+import { ValidaAtraso } from "./ValidaAtraso";
 
 interface CardOpProps {
   marca: string;
@@ -17,6 +18,7 @@ interface CardOpProps {
   qt_op: number;
   inicio_op: string;
   cd_nivel: string;
+  valida_atraso: string;
 }
 
 export function CardOP({
@@ -25,7 +27,8 @@ export function CardOP({
   nr_op, ds_colecao,
   qt_op,
   inicio_op,
-  cd_nivel
+  cd_nivel,
+  valida_atraso
 }: CardOpProps) {
   return (
     <div className="p-2 rounded bg-[#ccc] mb-4">
@@ -56,14 +59,7 @@ export function CardOP({
       </Dialog>
       <div className="w-full font-bold">
         <p>Entrada: {formatDate(inicio_op)}</p>
-        <div className="flex items-center gap-1">
-          <div className="bg-red-600 w-[24px] h-[24px] block rounded-full"></div>
-          <p>Atrasada</p>
-        </div>
-        <div className="flex items-center gap-1">
-          <div className="bg-green-500 w-[24px] h-[24px] block rounded-full"></div>
-          <p>Dentro do prazo</p>
-        </div>
+        <ValidaAtraso valida_atraso={valida_atraso}/>
       </div>
       <Dialog>
         <DialogTrigger asChild>
@@ -82,14 +78,7 @@ export function CardOP({
             <p>Coleção: {ds_colecao}</p>
             <p>Qt: {qt_op}</p>
             <p>Entrada: {formatDate(inicio_op)}</p>
-            <div className="flex items-center gap-1">
-              <div className="bg-red-600 w-[24px] h-[24px] block rounded-full"></div>
-              <p>Atrasada</p>
-            </div>
-            <div className="flex items-center gap-1">
-              <div className="bg-green-500 w-[24px] h-[24px] block rounded-full"></div>
-              <p>Dentro do prazo</p>
-            </div>
+            <ValidaAtraso valida_atraso={valida_atraso}/>
           </div>
         </DialogContent>
       </Dialog>

@@ -125,7 +125,7 @@ export default function Content() {
         <Dialog>
           <DialogTrigger asChild>
             <Button className="flex gap-1" variant="outline">
-              <Filter />Filtros
+              <Filter /><h2>Filtros</h2>
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-md">
@@ -241,6 +241,7 @@ export default function Content() {
                           qt_op={item.qt_op}
                           inicio_op={item.inicio_op}
                           cd_nivel={item.cd_nivel}
+                          valida_atraso={item.valida_atraso}
                         />
                       ))}
                   </div>
