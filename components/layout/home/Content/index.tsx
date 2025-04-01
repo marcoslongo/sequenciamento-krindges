@@ -22,16 +22,20 @@ import {
 } from '@/components/ui/dialog';
 
 interface Sequenciamento {
-  cd_local: number;
-  ds_local: string;
+  cd_empresa: number;
+  nr_ciclo: number;
   nr_op: number;
   nr_prioridade: number;
   inicio_op: string;
   dt_entrada_local: string;
+  valida_atraso: string;
   cd_nivel: string;
+  cd_local: number;
+  ds_local: string;
   ds_marca: string;
   ds_divisao_produtiva: string;
   ds_colecao: string;
+  ds_tipo: string;
   desenho_tecnico: string;
   ordem: number;
   qt_op: number;
@@ -76,6 +80,7 @@ export default function Content() {
       }
       const response = await fetch(url.toString());
       const resultado = await response.json();
+      console.log(resultado);
 
       if (comFiltros) {
         setDadosFiltrados(resultado.detailedData);
@@ -193,20 +198,25 @@ export default function Content() {
         ) : (
           <Swiper
             direction={'horizontal'}
-            slidesPerView={5}
             freeMode={true}
             scrollbar={{ draggable: true }}
             mousewheel={{ forceToAxis: true }}
             modules={[FreeMode, Scrollbar, Mousewheel]}
             className="mySwiper w-full"
             spaceBetween={20}
+            breakpoints={{
+              640: { slidesPerView: 1.2, spaceBetween: 10 },
+              768: { slidesPerView: 2.2, spaceBetween: 15 },
+              1024: { slidesPerView: 3.2, spaceBetween: 20 },
+              1280: { slidesPerView: 5.2, spaceBetween: 20 },
+            }}
           >
             {aggregatedData
               .filter((item) => {
                 return dadosFiltrados.some((data) => data.cd_local === item.cd_local);
               })
               .map((item, index) => (
-                <SwiperSlide key={index} className="!w-[18%]">
+                <SwiperSlide key={index} >
                   <div className="text-center bg-white rounded-t-md py-4">
                     <h2 className="text-lg font-bold">
                       {item.cd_local} - {item.ds_local}
@@ -218,7 +228,7 @@ export default function Content() {
                       Ordens no Local: {item.ordens_local}
                     </p>
                   </div>
-                  <div className="bg-white p-3 shadow rounded-b-md !h-[55vh] overflow-x-scroll overflow-y-auto">
+                  <div className="bg-white p-3 shadow rounded-b-md !h-[55vh] overflow-x-scroll">
                     {dadosFiltrados
                       .filter((data) => data.cd_local === item.cd_local)
                       .map((item, index) => (

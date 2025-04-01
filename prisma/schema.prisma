@@ -8,23 +8,25 @@ datasource db {
 }
 
 model TbSequenciamentoTeste {
-  cd_empresa           Int?
-  nr_ciclo             Int?
-  nr_op                Int       @id
-  nr_prioridade        Int?
-  inicio_op            DateTime? @db.Date
-  dt_entrada_local     DateTime? @db.Timestamp(6)
-  cd_nivel             String?   @db.VarChar(10)
-  cd_local             Int?
-  ds_local             String?   @db.VarChar(100)
-  dias_local           Int?
-  ds_marca             String?   @db.VarChar(50)
-  ds_divisao_produtiva String?   @db.VarChar(50)
-  ds_colecao           String?   @db.VarChar(50)
-  desenho_tecnico      String?   @db.VarChar(200)
-  ordem                Int?
-  qt_op                Int?
+  cd_empresa           Int
+  nr_ciclo             Int
+  nr_op                Int
+  nr_prioridade        Int
+  inicio_op            DateTime @db.Date
+  dt_entrada_local     DateTime @db.Timestamp(6)
+  valida_atraso        String   @db.VarChar(20)
+  cd_nivel             String   @db.VarChar(50)
+  cd_local             Int
+  ds_local             String   @db.VarChar(100)
+  ds_marca             String   @db.VarChar(50)
+  ds_divisao_produtiva String   @db.VarChar(50)
+  ds_colecao           String   @db.VarChar(50)
+  ds_tipo              String   @db.VarChar(50)
+  desenho_tecnico      String   @db.VarChar(255)
+  ordem                Int
+  qt_op                Int
 
+  @@id([cd_empresa, nr_ciclo, nr_op])
   @@map("tb_sequenciamento_teste")
 }
 

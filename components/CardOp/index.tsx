@@ -28,7 +28,7 @@ export function CardOP({
   cd_nivel
 }: CardOpProps) {
   return (
-    <div className="w-full p-2 rounded bg-[#ccc] mb-4">
+    <div className="p-2 rounded bg-[#ccc] mb-4">
       <div className="font-bold text-center">
         <p>O.P: {nr_op}</p>
         <p>Ref: {cd_nivel}</p>
