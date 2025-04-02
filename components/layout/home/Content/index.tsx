@@ -1,16 +1,13 @@
 'use client';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/scrollbar';
-import { FreeMode, Scrollbar, Mousewheel } from 'swiper/modules';
 import { useState, useEffect } from 'react';
 import { CardOP } from '@/components/CardOp';
 import { Header } from '../../Header';
-import { Filter, Search, UserRoundCog } from 'lucide-react';
+import { Eraser, Filter, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 
 import {
   Dialog,
@@ -56,9 +53,7 @@ export default function Content() {
   const [, setDados] = useState<Sequenciamento[]>([]);
   const [dadosFiltrados, setDadosFiltrados] = useState<Sequenciamento[]>([]);
   const [aggregatedData, setAggregatedData] = useState<AggregatedData[]>([]);
-  const [aggregatedDataProdutive, setAggregatedDataProdutive] = useState<
-    AggregatedDataProdutive[]
-  >([]);
+  const [aggregatedDataProdutive, setAggregatedDataProdutive] = useState<AggregatedDataProdutive[]>([]);
   const [selectedLocais, setSelectedLocais] = useState<number[]>([]);
   const [selectedDivisoes, setSelectedDivisoes] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -113,15 +108,16 @@ export default function Content() {
     );
   };
 
+  const limparFiltros = () => {
+    setSelectedLocais([]);
+    setSelectedDivisoes([]);
+    fetchData(false);
+  };
+
   return (
     <main className="h-screen bg-gray-300">
       <Header />
       <div className="bg-[#0d0131] p-6 flex justify-center items-center gap-4">
-        <Link href="/liberacao-acesso" tabIndex={-1}>
-          <Button className="flex gap-1" variant="outline">
-            <UserRoundCog /> Gerenciar usuários
-          </Button>
-        </Link>
         <Dialog>
           <DialogTrigger asChild>
             <Button className="flex gap-1" variant="outline">
@@ -176,7 +172,7 @@ export default function Content() {
                   );
                 })}
               </ul>
-              <div className="flex justify-center">
+              <div className="flex justify-center gap-3">
                 <DialogClose asChild>
                   <Button
                     className="flex gap-1 bg-[#0d0131]"
@@ -185,86 +181,77 @@ export default function Content() {
                     Buscar <Search color="#fff" />
                   </Button>
                 </DialogClose>
+                <Button
+                  className="flex gap-1 bg-[#0d0131]"
+                  onClick={limparFiltros}
+                >
+                  Limpar Filtros <Eraser color="#fff" />
+                </Button>
               </div>
             </div>
           </DialogContent>
         </Dialog>
       </div>
-      <div className="p-6">
-        {loading ? (
-          <div className="flex justify-center h-[30vh] items-center">
-            Carregando...
-          </div>
-        ) : (
-          <Swiper
-            direction={'horizontal'}
-            freeMode={true}
-            scrollbar={{ draggable: true }}
-            mousewheel={{ forceToAxis: true }}
-            modules={[FreeMode, Scrollbar, Mousewheel]}
-            className="mySwiper w-full"
-            spaceBetween={20}
-            breakpoints={{
-              640: { slidesPerView: 1.4, spaceBetween: 10 },
-              768: { slidesPerView: 2.4, spaceBetween: 15 },
-              1024: { slidesPerView: 3.4, spaceBetween: 20 },
-              1280: { slidesPerView: 5.4, spaceBetween: 20 },
-            }}
-          >
-            {aggregatedData
-              .filter((item) => {
-                return dadosFiltrados.some((data) => data.cd_local === item.cd_local);
-              })
-              .map((item, index) => (
-                <SwiperSlide key={index}>
-                  <div className="text-center bg-white rounded-t-md py-4">
-                    <h2 className="text-lg font-bold">
-                      {item.cd_local} - {item.ds_local}
-                    </h2>
-                    <p className="text-md font-bold">
-                      Peças no Local: {item.pecas_local}
-                    </p>
-                    <p className="text-md font-bold">
-                      Ordens no Local: {item.ordens_local}
-                    </p>
-                  </div>
-                  <div className="bg-white p-3 shadow rounded-b-md !h-[55vh] overflow-x-scroll">
-                    {dadosFiltrados.filter((data) => data.cd_local === item.cd_local)
-                      .length === 0 ? (
-                      <p className="text-center text-gray-500">Nenhum resultado encontrado para este local.</p>
-                    ) : (
-                      dadosFiltrados
-                        .filter((data) => data.cd_local === item.cd_local)
-                        .map((item, index) => (
-                          <CardOP
-                            key={index}
-                            marca={item.ds_marca}
-                            desenho_tecnico={item.desenho_tecnico}
-                            nr_op={item.nr_op}
-                            ds_colecao={item.ds_colecao}
-                            qt_op={item.qt_op}
-                            inicio_op={item.inicio_op}
-                            cd_nivel={item.cd_nivel}
-                            valida_atraso={item.valida_atraso}
-                            ds_tipo={item.ds_tipo}
-                          />
-                        ))
-                    )}
-                  </div>
-                </SwiperSlide>
-              ))}
-            {aggregatedData
-              .filter((item) => {
-                return dadosFiltrados.some((data) => data.cd_local === item.cd_local);
-              })
-              .length === 0 && (
-                <div className="text-center bg-white rounded-t-md py-4">
-                  <p className="text-lg font-bold">Nenhum local disponível para exibir.</p>
+      {loading ? (
+        <div className="flex justify-center h-[30vh] items-center">
+          Carregando...
+        </div>
+      ) : (
+        <div className='w-full overflow-x-scroll flex gap-6 p-6'>
+          {aggregatedData
+            .filter((item) => {
+              return dadosFiltrados.some((data) => data.cd_local === item.cd_local);
+            })
+            .map((item, index) => (
+              <div className='min-w-[350px] bg-white rounded-md' key={index}>
+                <div className="text-center py-4">
+                  <h2 className="text-lg font-bold">
+                    {item.cd_local} - {item.ds_local}
+                  </h2>
+                  <p className="text-md font-bold">
+                    Peças no Local: {item.pecas_local}
+                  </p>
+                  <p className="text-md font-bold">
+                    Ordens no Local: {item.ordens_local}
+                  </p>
                 </div>
-              )}
-          </Swiper>
-        )}
-      </div>
+                <div className="bg-white p-3 shadow rounded-b-md !h-[55vh] overflow-x-scroll">
+                  {dadosFiltrados.filter((data) => data.cd_local === item.cd_local)
+                    .length === 0 ? (
+                    <p className="text-center text-gray-500">Nenhum resultado encontrado para este local.</p>
+                  ) : (
+                    dadosFiltrados
+                      .filter((data) => data.cd_local === item.cd_local)
+                      .map((item, index) => (
+                        <CardOP
+                          key={index}
+                          marca={item.ds_marca}
+                          desenho_tecnico={item.desenho_tecnico}
+                          nr_op={item.nr_op}
+                          ds_colecao={item.ds_colecao}
+                          qt_op={item.qt_op}
+                          inicio_op={item.inicio_op}
+                          cd_nivel={item.cd_nivel}
+                          valida_atraso={item.valida_atraso}
+                          ds_tipo={item.ds_tipo}
+                          nr_cliclo={item.nr_ciclo}
+                        />
+                      ))
+                  )}
+                </div>
+              </div>
+            ))}
+          {aggregatedData
+            .filter((item) => {
+              return dadosFiltrados.some((data) => data.cd_local === item.cd_local);
+            })
+            .length === 0 && (
+              <div className="w-full mt-6 text-center bg-white rounded-t-md py-4">
+                <p className="text-lg font-bold">Nenhum local disponível para exibir.</p>
+              </div>
+            )}
+        </div>
+      )}
     </main>
   );
 }

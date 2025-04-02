@@ -20,6 +20,7 @@ interface CardOpProps {
   cd_nivel: string;
   valida_atraso: string;
   ds_tipo: string;
+  nr_cliclo: number;
 }
 
 export function CardOP({
@@ -30,7 +31,8 @@ export function CardOP({
   inicio_op,
   cd_nivel,
   valida_atraso,
-  ds_tipo
+  ds_tipo,
+  nr_cliclo
 }: CardOpProps) {
   return (
     <div className="p-2 rounded bg-[#ccc] mb-4">
@@ -40,6 +42,7 @@ export function CardOP({
         <p className="text-sm">Marca: <span>{marca}</span></p>
         <p>Coleção: {ds_colecao}</p>
         <p>Qt: {qt_op}</p>
+        <p>Ciclo: {nr_cliclo}</p>
       </div>
       <Dialog>
         <DialogTrigger asChild>
@@ -81,7 +84,8 @@ export function CardOP({
             <p>Coleção: {ds_colecao}</p>
             <p>Qt: {qt_op}</p>
             <p>Entrada: {formatDate(inicio_op)}</p>
-            <p>{ds_tipo}</p>
+            <p>{ds_tipo === 'COSTURA_EXTERNA' ? 'Costura externa' : 'Costura interna'}</p>
+            <p>Ciclo: {nr_cliclo}</p>
             <ValidaAtraso valida_atraso={valida_atraso} />
           </div>
         </DialogContent>
