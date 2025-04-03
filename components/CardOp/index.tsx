@@ -36,17 +36,17 @@ export function CardOP({
 }: CardOpProps) {
   return (
     <div className="p-2 rounded bg-[#ccc] mb-4">
-      <div className="font-bold text-center">
+      <div className="font-bold text-center text-sm">
         <p>O.P: {nr_op}</p>
         <p>Ref: {cd_nivel}</p>
-        <p className="text-sm">Marca: <span>{marca}</span></p>
+        <p>Marca: <span>{marca}</span></p>
         <p>Coleção: {ds_colecao}</p>
         <p>Qt: {qt_op}</p>
         <p>Ciclo: {nr_cliclo}</p>
       </div>
       <Dialog>
         <DialogTrigger asChild>
-          <div className="w-full h-64 relative cursor-pointer">
+          <div className="w-full h-64 relative cursor-pointer overflow-hidden rounded-sm">
             <Image src={desenho_tecnico} alt="alt" fill />
           </div>
         </DialogTrigger>

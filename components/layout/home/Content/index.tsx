@@ -231,13 +231,13 @@ export default function Content() {
           Carregando...
         </div>
       ) : (
-        <div className='w-full overflow-x-scroll flex gap-6 p-6'>
+        <div className='w-full overflow-x-scroll flex gap-4 md:gap-6 p-2 md:p-6'>
           {aggregatedData
             .filter((item) => {
               return dadosFiltrados.some((data) => data.cd_local === item.cd_local);
             })
             .map((item, index) => (
-              <div className='min-w-[350px] bg-white rounded-md' key={index}>
+              <div className='min-w-[290px] md:min-w-[350px] bg-white rounded-md' key={index}>
                 <div className="text-center py-4">
                   <h2 className="text-lg font-bold">
                     {item.cd_local} - {item.ds_local}
@@ -249,7 +249,7 @@ export default function Content() {
                     Ordens no Local: {item.ordens_local}
                   </p>
                 </div>
-                <div className="bg-white p-3 shadow rounded-b-md !h-[55vh] overflow-x-scroll">
+                <div className="bg-white p-3 shadow rounded-b-md !h-[55vh] overflow-y-scroll overflow-x-hidden">
                   {dadosFiltrados.filter((data) => data.cd_local === item.cd_local)
                     .length === 0 ? (
                     <p className="text-center text-gray-500">Nenhum resultado encontrado para este local.</p>
