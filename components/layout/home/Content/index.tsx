@@ -63,6 +63,7 @@ export default function Content() {
 
   useEffect(() => {
     fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const fetchData = async (comFiltros: boolean = false) => {
     setLoading(true);
@@ -81,7 +82,6 @@ export default function Content() {
       }
       const response = await fetch(url.toString());
       const resultado = await response.json();
-      console.log(resultado);
 
       if (comFiltros) {
         setDadosFiltrados(resultado.detailedData);
@@ -238,7 +238,7 @@ export default function Content() {
               return dadosFiltrados.some((data) => data.cd_local === item.cd_local);
             })
             .map((item, index) => (
-              <div className='min-w-[290px] md:min-w-[350px] bg-white rounded-md' key={index}>
+              <div className='min-w-[290px] max-w-[290px] md:min-w-[350px] md:max-w-[350px] bg-white rounded-md pb-6' key={index}>
                 <div className="text-center py-4">
                   <h2 className="text-lg font-bold">
                     {item.cd_local} - {item.ds_local}
@@ -250,7 +250,7 @@ export default function Content() {
                     Ordens no Local: {item.ordens_local}
                   </p>
                 </div>
-                <div className="bg-white p-3 shadow rounded-b-md !h-[55vh] overflow-y-scroll overflow-x-hidden">
+                <div className="bg-white p-3 shadow rounded-b-md !h-[53vh] overflow-y-scroll overflow-x-hidden">
                   {dadosFiltrados.filter((data) => data.cd_local === item.cd_local)
                     .length === 0 ? (
                     <p className="text-center text-gray-500">Nenhum resultado encontrado para este local.</p>
