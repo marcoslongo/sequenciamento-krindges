@@ -6,11 +6,12 @@ import 'swiper/css/scrollbar';
 import Content from "@/components/layout/home/Content";
 import Link from "next/link";
 import Image from "next/image";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 export default function Home() {
   const { user, loading } = useAuth();
 
-  if (loading) return <p>Carregando...</p>;
+  if (loading) return <LoadingSpinner />;
   if (!user) return (
     <div className="w-full h-[100vh] bg-[#0d0131] flex items-center justify-center">
       <div className="flex justify-center items-center gap-4 flex-col">

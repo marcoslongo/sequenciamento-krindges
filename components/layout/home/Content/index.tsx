@@ -17,6 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
 
 interface Sequenciamento {
   cd_empresa: number;
@@ -124,7 +125,7 @@ export default function Content() {
   return (
     <main className="h-screen bg-gray-300">
       <Header />
-      <div className="bg-[#0d0131] p-6 flex justify-center items-center gap-4">
+      <div className="bg-[#0d0131] p-3 md:p-6 flex justify-center items-center gap-4">
         <Dialog>
           <DialogTrigger asChild>
             <Button className="flex gap-1" variant="outline">
@@ -228,7 +229,7 @@ export default function Content() {
       </div>
       {loading ? (
         <div className="flex justify-center h-[30vh] items-center">
-          Carregando...
+          <LoadingSpinner />
         </div>
       ) : (
         <div className='w-full overflow-x-scroll flex gap-4 md:gap-6 p-2 md:p-6'>
