@@ -9,11 +9,13 @@ export async function GET(request: Request) {
 
     const locais = searchParams.get("locais")?.split(",") || [];
     const divisoes = searchParams.get("divisoes")?.split(",") || [];
+    const tipos = searchParams.get("tipos")?.split(",") || [];
 
     const where = {
       AND: [
         locais.length > 0 ? { cd_local: { in: locais.map(Number) } } : {},
         divisoes.length > 0 ? { ds_divisao_produtiva: { in: divisoes } } : {},
+        tipos.length > 0 ? { ds_tipo: { in: tipos } } : {},
       ],
     };
 

@@ -54,6 +54,7 @@ export default function Content() {
   const [dadosFiltrados, setDadosFiltrados] = useState<Sequenciamento[]>([]);
   const [aggregatedData, setAggregatedData] = useState<AggregatedData[]>([]);
   const [aggregatedDataProdutive, setAggregatedDataProdutive] = useState<AggregatedDataProdutive[]>([]);
+  const [selectedTipos, setSelectedTipos] = useState<string[]>([]);
   const [selectedLocais, setSelectedLocais] = useState<number[]>([]);
   const [selectedDivisoes, setSelectedDivisoes] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -71,6 +72,9 @@ export default function Content() {
         }
         if (selectedDivisoes.length > 0) {
           url.searchParams.set('divisoes', selectedDivisoes.join(','));
+        }
+        if (selectedTipos.length > 0) {
+          url.searchParams.set('tipos', selectedTipos.join(','));
         }
       }
       const response = await fetch(url.toString());
@@ -111,6 +115,7 @@ export default function Content() {
   const limparFiltros = () => {
     setSelectedLocais([]);
     setSelectedDivisoes([]);
+    setSelectedTipos([]);
     fetchData(false);
   };
 
@@ -167,6 +172,31 @@ export default function Content() {
                       />
                       <label htmlFor={checkboxId} className="cursor-pointer">
                         {item.ds_divisao_produtiva}
+                      </label>
+                    </li>
+                  );
+                })}
+              </ul>
+              <DialogHeader>
+                <DialogTitle>Filtrar por Tipo</DialogTitle>
+              </DialogHeader>
+              <ul className="flex flex-col gap-2">
+                {Array.from(new Set(dadosFiltrados.map((item) => item.ds_tipo))).map((tipo, index) => {
+                  const checkboxId = `checkbox-${tipo}`;
+                  return (
+                    <li key={index} className="flex items-center gap-1">
+                      <Checkbox
+                        value={tipo}
+                        id={checkboxId}
+                        checked={selectedTipos.includes(tipo)}
+                        onCheckedChange={() =>
+                          setSelectedTipos((prev) =>
+                            prev.includes(tipo) ? prev.filter((t) => t !== tipo) : [...prev, tipo]
+                          )
+                        }
+                      />
+                      <label htmlFor={checkboxId} className="cursor-pointer">
+                        {tipo}
                       </label>
                     </li>
                   );
