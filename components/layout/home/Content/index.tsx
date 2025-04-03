@@ -54,6 +54,7 @@ export default function Content() {
   const [dadosFiltrados, setDadosFiltrados] = useState<Sequenciamento[]>([]);
   const [aggregatedData, setAggregatedData] = useState<AggregatedData[]>([]);
   const [aggregatedDataProdutive, setAggregatedDataProdutive] = useState<AggregatedDataProdutive[]>([]);
+  const [aggregatedDataTipos, setAggregatedDataTipos] = useState<{ ds_tipo: string }[]>([]);
   const [selectedTipos, setSelectedTipos] = useState<string[]>([]);
   const [selectedLocais, setSelectedLocais] = useState<number[]>([]);
   const [selectedDivisoes, setSelectedDivisoes] = useState<string[]>([]);
@@ -88,6 +89,7 @@ export default function Content() {
         setDadosFiltrados(resultado.detailedData);
         setAggregatedData(resultado.aggregatedData);
         setAggregatedDataProdutive(resultado.aggregatedDataProdutive);
+        setAggregatedDataTipos(resultado.aggregatedDataTipos);
       }
     } catch (error) {
       console.error('Erro ao buscar os dados:', error);
@@ -181,22 +183,22 @@ export default function Content() {
                 <DialogTitle>Filtrar por Tipo</DialogTitle>
               </DialogHeader>
               <ul className="flex flex-col gap-2">
-                {Array.from(new Set(dadosFiltrados.map((item) => item.ds_tipo))).map((tipo, index) => {
-                  const checkboxId = `checkbox-${tipo}`;
+                {aggregatedDataTipos.map((item, index) => {
+                  const checkboxId = `checkbox-${item.ds_tipo}`;
                   return (
                     <li key={index} className="flex items-center gap-1">
                       <Checkbox
-                        value={tipo}
+                        value={item.ds_tipo}
                         id={checkboxId}
-                        checked={selectedTipos.includes(tipo)}
+                        checked={selectedTipos.includes(item.ds_tipo)}
                         onCheckedChange={() =>
                           setSelectedTipos((prev) =>
-                            prev.includes(tipo) ? prev.filter((t) => t !== tipo) : [...prev, tipo]
+                            prev.includes(item.ds_tipo) ? prev.filter((t) => t !== item.ds_tipo) : [...prev, item.ds_tipo]
                           )
                         }
                       />
                       <label htmlFor={checkboxId} className="cursor-pointer">
-                        {tipo}
+                        {item.ds_tipo === 'COSTURA_EXTERNA' ? 'COSTURA EXTERNA' : 'COSTURA INTERNA'}
                       </label>
                     </li>
                   );

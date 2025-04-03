@@ -38,6 +38,12 @@ export async function GET(request: Request) {
       where,
     });
 
+    const aggregatedDataTipos = await prisma.tbSequenciamentoTeste.findMany({
+      select: { ds_tipo: true },
+      distinct: ["ds_tipo"],
+      where,
+    });
+
     const detailedData = await prisma.tbSequenciamentoTeste.findMany({
       where,
       orderBy: {
@@ -56,6 +62,7 @@ export async function GET(request: Request) {
       aggregatedData: processedAggregatedData,
       detailedData,
       aggregatedDataProdutive,
+      aggregatedDataTipos
     });
   } catch (error) {
     console.error("Erro ao buscar os dados:", error);

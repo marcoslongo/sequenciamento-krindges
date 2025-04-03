@@ -5,7 +5,6 @@ import { signIn } from "next-auth/react";
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Image from "next/image";
-import Link from "next/link";
 import { useToast } from "@/hooks/use-toast"
 
 
@@ -44,9 +43,6 @@ export default function LoginPage() {
           <form className="flex flex-col gap-3 w-full" onSubmit={handleLogin}>
             <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
             <Input type="password" placeholder="Senha" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <div className="text-center">
-              <p className="text-white">Não possui cadastro? <Link className="hover:underline" href="/cadastro">Fazer cadastro</Link></p>
-            </div>
             <div className="flex justify-center">
               <Button className="bg-[#C9AC44] transition hover:bg-black" type="submit">Entrar</Button>
             </div>
