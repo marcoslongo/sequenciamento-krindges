@@ -181,12 +181,14 @@ export default function Content() {
                     Buscar <Search color="#fff" />
                   </Button>
                 </DialogClose>
-                <Button
-                  className="flex gap-1 bg-[#0d0131]"
-                  onClick={limparFiltros}
-                >
-                  Limpar Filtros <Eraser color="#fff" />
-                </Button>
+                <DialogClose asChild>
+                  <Button
+                    className="flex gap-1 bg-[#0d0131]"
+                    onClick={limparFiltros}
+                  >
+                    Limpar Filtros <Eraser color="#fff" />
+                  </Button>
+                </DialogClose>
               </div>
             </div>
           </DialogContent>
