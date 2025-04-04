@@ -63,7 +63,7 @@ export default function Content() {
 
   useEffect(() => {
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const fetchData = async (comFiltros: boolean = false) => {
     setLoading(true);
@@ -113,6 +113,15 @@ export default function Content() {
         ? prev.filter((divisao) => divisao !== ds_divisao_produtiva)
         : [...prev, ds_divisao_produtiva]
     );
+  };
+
+  const calculateFilteredTotals = (localId: number) => {
+    const filteredItems = dadosFiltrados.filter(data => data.cd_local === localId);
+
+    return {
+      pecas_local: filteredItems.reduce((sum, item) => sum + (item.qt_op || 0), 0),
+      ordens_local: filteredItems.length
+    };
   };
 
   const limparFiltros = () => {
@@ -244,10 +253,10 @@ export default function Content() {
                     {item.cd_local} - {item.ds_local}
                   </h2>
                   <p className="text-md font-bold">
-                    Peças no Local: {item.pecas_local}
+                    Peças no Local: {calculateFilteredTotals(item.cd_local).pecas_local}
                   </p>
                   <p className="text-md font-bold">
-                    Ordens no Local: {item.ordens_local}
+                    Ordens no Local: {calculateFilteredTotals(item.cd_local).ordens_local}
                   </p>
                 </div>
                 <div className="bg-white p-3 shadow rounded-b-md !h-[53vh] overflow-y-scroll overflow-x-hidden">
